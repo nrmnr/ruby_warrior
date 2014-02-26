@@ -7,15 +7,13 @@ class Player
       warrior.pivot!
     elsif warrior.feel.captive?
       warrior.rescue!
-    elsif warrior.health < @health
-      if warrior.feel.enemy?
-        warrior.attack!
-      else
-        warrior.walk!
-      end
-    elsif warrior.look.any?{|s| s.enemy?}
+    elsif warrior.look(:backward).any? {|sp| sp.enemy?}
+      warrior.walk!
+    elsif warrior.feel.enemy?
+      warrior.attack!
+    elsif warrior.look.any?{|sp| sp.enemy?}
       warrior.shoot!
-    elsif warrior.health < 20
+    elsif warrior.health < 10
       warrior.rest!
     else
       warrior.walk!
