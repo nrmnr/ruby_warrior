@@ -3,11 +3,12 @@ class Player
   def play_turn(warrior)
     # cool code goes here
     @health ||= warrior.health
-    if warrior.health < @health # taking damage
+    case
+    when warrior.health < @health # taking damage
       warrior.feel.enemy? ? warrior.attack! : warrior.walk!
-    elsif warrior.feel.enemy?
+    when warrior.feel.enemy?
       warrior.attack!
-    elsif warrior.health < 12
+    when warrior.health < 12
       warrior.rest!
     else
       warrior.walk!
